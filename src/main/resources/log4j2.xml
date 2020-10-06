@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+  		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d %5p [%c] %m%n" />
+		</Console>
+		
+        <RollingFile name="file-debug" fileName="C:\blackframework\log\debug\debug.log" filePattern="C:\blackframework\log\debug\$${date:yyyyMMdd}\%d{yyyyMMdd}-%i.debug.log" append="false">
+            <PatternLayout pattern="%d %p (%t) [%c] - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="20MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="500" fileIndex="min" />
+        </RollingFile>
+        
+        <RollingFile name="file-sqltiming" fileName="C:\blackframework\log\sqltiming\sqltiming.log" filePattern="C:\blackframework\log\sqltiming\$${date:yyyyMMdd}\%d{yyyyMMdd}-%i.sqltiming.log" append="false">
+            <PatternLayout pattern="%d %p (%t) [%c] - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="20MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="500" fileIndex="min" />
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="egovframework" level="DEBUG" additivity="true">
+            <AppenderRef ref="file-debug" />
+        </Logger>
+        <logger name="jdbc.sqltiming" level="INFO" additivity="true">
+            <appender-ref ref="file-sqltiming" />
+        </logger>
+        <logger name="org.springframework" level="INFO" additivity="true">
+            <appender-ref ref="console" />
+        </logger>
+        <logger name="java.sql.Connection" level="DEBUG" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+        <logger name="java.sql.Statement" level="DEBUG" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+        <logger name="java.sql.PreparedStatement" level="DEBUG" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+        <logger name="java.sql.ResultSet" level="DEBUG" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+        <Root level="ERROR">
+            <AppenderRef ref="console" />
+        </Root>
+    </Loggers>
+</Configuration>
